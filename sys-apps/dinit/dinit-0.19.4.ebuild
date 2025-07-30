@@ -28,9 +28,9 @@ PDEPEND="
 	dinit-init? ( >=sys-apps/dinit-init-0.5.0 )
 "
 
-PATCHES="
+PATCHES=(
 	"${FILESDIR}"/restart-interval.patch
-"
+)
 
 pkg_setup() {
 	local CONFIG_CHECK="~CGROUPS"
