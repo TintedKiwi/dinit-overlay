@@ -1,0 +1,54 @@
+diff --git a/Makefile b/Makefile
+index 3babd31..3b72b7a 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,12 +1,12 @@
+ SHELL=/bin/bash
+ 
+-TOOLS = artix-cgroups
++PKGNAME = cgroup-utils
+ SYSCONFDIR = /etc
+ PREFIX = /usr/local
+-LIBDIR = $(PREFIX)/lib/artix
+-DATADIR = $(PREFIX)/share/artix/cgroups
++LIBDIR = $(PREFIX)/lib/$(PKGNAME)
++DATADIR = $(PREFIX)/share/$(PKGNAME)
+ BUILDDIR = build
+-CGROUP ?= artix
++CGROUP ?= gentoo
+ CGEXT ?= .sv
+ 
+ HAVECHILD = no
+@@ -34,6 +34,7 @@ config: $(CONFIG)
+ 
+ edit = sed -e "s|@libdir[@]|$(DATADIR)|g"\
+ 	-e "s|@sysconfdir[@]|$(SYSCONFDIR)|g" \
++	-e "s|@pkgname[@]|$(PKGNAME)|g" \
+ 	-e "s|@cgname[@]|$(CGROUP)|g" \
+ 	-e "s|@havechild[@]|$(HAVECHILD)|g" \
+ 	-e "s|@cgext[@]|$(CGEXT)|g"
+@@ -65,11 +66,11 @@ install: all
+ 	install -dm0755 $(DESTDIR)$(LIBDIR)
+ 	install -m0755 $(BINPROGS) $(DESTDIR)$(LIBDIR)
+ 	install -dm0755 $(DESTDIR)$(DATADIR)
+-	install -dm0755 $(DESTDIR)$(SYSCONFDIR)/artix
++	install -dm0755 $(DESTDIR)$(SYSCONFDIR)/$(PKGNAME)
+ 
+ 	cp -ra $(BUILDDIR)/lib/* $(DESTDIR)$(DATADIR)
+ 
+-	for conf in $(notdir $(CONFIG)); do install -Dm0644 $(BUILDDIR)/conf/$$conf $(DESTDIR)$(SYSCONFDIR)/artix/$${conf##*/}; done
++	for conf in $(notdir $(CONFIG)); do install -Dm0644 $(BUILDDIR)/conf/$$conf $(DESTDIR)$(SYSCONFDIR)/$(PKGNAME)/$${conf##*/}; done
+ 
+ uninstall:
+ 	for f in $(notdir $(BINPROGS)); do rm -f $(DESTDIR)$(LIBDIR)/$$f; done
+@@ -78,10 +79,6 @@ uninstall:
+ 	rmdir --ignore-fail-on-non-empty \
+ 		$(DESTDIR)$(DATADIR)
+ 
+-dist:
+-	git archive --format=tar --prefix=$(TOOLS)-$(V)/ v$(V) | gzip > $(TOOLS)-$(V).tar.gz
+-	gpg --detach-sign --use-agent $(TOOLS)-$(V).tar.gz
+-
+ check: $(BINPROGS) $(LIBRARY)
+ 	shellcheck -x $^
+ 
