@@ -12,6 +12,12 @@ SLOT="0"
 KEYWORDS="amd64 arm64"
 PROPERTIES="-live"
 
+COMMON_DEPEND="
+	>=app-shells/bash-5.2_p37-r3
+"
+RDEPEND="${COMMON_DEPEND}"
+BDEPEND="${COMMON_DEPEND}"
+
 PATCHES=(
 	"${FILESDIR}"/update-makefile.patch
 	"${FILESDIR}"/update-cgroups-conf-file-path.patch
