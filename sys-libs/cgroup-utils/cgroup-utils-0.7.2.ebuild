@@ -12,9 +12,7 @@ SLOT="0"
 KEYWORDS="amd64 arm64"
 PROPERTIES="-live"
 
-COMMON_DEPEND="
-	>=app-shells/bash-5.2_p37-r3
-"
+COMMON_DEPEND=">=app-shells/bash-5.2_p37-r3"
 RDEPEND="${COMMON_DEPEND}"
 BDEPEND="${COMMON_DEPEND}"
 
@@ -24,7 +22,7 @@ PATCHES=(
 )
 
 pkg_setup() {
-	local CONFIG_CHECK="CGROUPS"
+	local CONFIG_CHECK="~CGROUPS"
 	use kernel_linux && linux-info_pkg_setup
 }
 
