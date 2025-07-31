@@ -16,6 +16,8 @@ RDEPEND="
 	caps? ( >=sys-libs/libcap-2.76 )
 	dinit-init? (
 		!sys-apps/openrc
+		!sys-apps/s6-linux-init
+		!sys-apps/systemd
 		!sys-apps/sysvinit
 	)
 	fish-completion? ( >=app-shells/fish-3.7.1 )
