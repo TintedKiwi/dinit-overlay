@@ -14,6 +14,10 @@ IUSE="bash-completion caps dinit-init fish-completion zsh-completion"
 RDEPEND="
 	bash-completion? ( >=app-shells/bash-completion-2.16.0-r1 )
 	caps? ( >=sys-libs/libcap-2.76 )
+	dinit-init? (
+		!sys-apps/openrc
+		!sys-apps/sysvinit
+	)
 	fish-completion? ( >=app-shells/fish-3.7.1 )
 	zsh-completion? ( >=app-shells/zsh-completions-0.35.0 )
 	>=sys-libs/cgroup-utils-0.7.2
