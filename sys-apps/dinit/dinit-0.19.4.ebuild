@@ -29,7 +29,7 @@ BDEPEND="
 	)
 "
 PDEPEND="
-	dinit-init? ( >=sys-apps/dinit-init-0.5.0 )
+	dinit-init? ( >=sys-apps/dinitrc-0.5.0 )
 "
 
 PATCHES=(
