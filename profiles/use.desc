@@ -1,4 +1,5 @@
 # Keep them sorted
 
+dinit - Add support for the Dinit service manager
 dinit-init - Add support for the Dinit service manager and init system
 fish-completion - Enable fish completion support
