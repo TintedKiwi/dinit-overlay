@@ -9,7 +9,7 @@ SRC_URI="https://github.com/davmac314/dinit/releases/download/v${PV}/${P}.tar.xz
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="amd64 arm64"
-IUSE="bash-completion caps dinit-init fish-completion zsh-completion"
+IUSE="bash-completion caps +dinit-init fish-completion zsh-completion"
 
 RDEPEND="
 	bash-completion? ( >=app-shells/bash-completion-2.16.0-r1 )
