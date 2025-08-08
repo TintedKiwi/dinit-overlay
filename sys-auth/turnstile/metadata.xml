@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>181007489+TintedKiwi@users.noreply.github.com</email>
+		<name>TintedKiwi</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">chimera-linux/turnstile</remote-id>
+	</upstream>
+	<use>
+		<flag name="rundir">Enable management of XDG_RUNTIME_DIR</flag>
+	</use>
+</pkgmetadata>
