@@ -1,0 +1,9 @@
+#!/bin/sh
+
+. /etc/cgroup-utils/cgroups.conf
+
+if [ "${CG_CHILD}" = "true" ]; then
+	CG_PARAM="-b /sys/fs/cgroup/${CG_CHILD_NAME}"
+fi
+
+exec /usr/bin/dinit ${CG_PARAM} "$@"

@@ -9,19 +9,29 @@ SRC_URI="https://github.com/davmac314/dinit/releases/download/v${PV}/${P}.tar.xz
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="amd64 arm64"
-IUSE="bash-completion caps fish-completion zsh-completion"
+IUSE="bash-completion caps +dinit-init fish-completion zsh-completion"
 
 RDEPEND="
 	bash-completion? ( >=app-shells/bash-completion-2.16.0-r1 )
 	caps? ( >=sys-libs/libcap-2.76 )
+	dinit-init? (
+		!sys-apps/openrc
+		!sys-apps/s6-linux-init
+		!sys-apps/systemd
+		!sys-apps/sysvinit
+	)
 	fish-completion? ( >=app-shells/fish-3.7.1 )
 	zsh-completion? ( >=app-shells/zsh-completions-0.35.0 )
+	>=sys-libs/cgroup-utils-0.7.2
 "
 BDEPEND="
 	|| (
 		>=llvm-core/clang-15.0.7-r3
 		>=sys-devel/gcc-11.5.0
 	)
+"
+PDEPEND="
+	dinit-init? ( >=sys-apps/dinitrc-0.5.0 )
 "
 
 PATCHES=(
@@ -56,7 +66,6 @@ src_configure() {
 	# Configuration options
 	local myconf=(
 		--disable-ioprio
-		--disable-shutdown
 		--enable-cgroups
 		--enable-initgroups
 		--enable-oom-adj
@@ -77,6 +86,13 @@ src_configure() {
 		myconf+=( --disable-capabilities )
 	fi
 
+	# Build the "shutdown" (and "halt" etc.) utilities if dinit is the system init
+	if use dinit-init; then
+		myconf+=( --enable-shutdown )
+	else
+		myconf+=( --disable-shutdown )
+	fi
+
 	env "${conf_env[@]}" econf "${myconf[@]}"
 }
 
@@ -93,5 +109,11 @@ src_install() {
 	elif use zsh-completion; then
 		insinto /usr/share/zsh/site-functions
 		doins contrib/shell-completion/zsh/_dinit
+	fi
+
+	# dinit-init symlink
+	if use dinit-init; then
+		dobin "${FILESDIR}"/dinit-init
+		dosym /usr/bin/dinit-init /usr/bin/init
 	fi
 }
