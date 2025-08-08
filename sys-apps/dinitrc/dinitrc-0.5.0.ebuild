@@ -15,7 +15,7 @@ S="${WORKDIR}/dinit-rc"
 COMMON_DEPEND=">=app-shells/bash-5.2_p37-r3"
 RDEPEND="${COMMON_DEPEND}
 	>=net-misc/iputils-20250605-r1
-	>=sys-apps/dbus-1.16.2
+	>=sys-apps/dbus-1.16.2[dinit,dinit-init]
 	>=sys-apps/dinit-0.19.4[dinit-init]
 	>=sys-apps/iproute2-6.15.0
 	>=sys-apps/kmod-33
