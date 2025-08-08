@@ -1,3 +1,5 @@
 # Keep them sorted
 
+dinit - Add support for the Dinit service manager
 dinit-init - Add support for the Dinit service manager and init system
+openrc - Add support for the OpenRC init system
