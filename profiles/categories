@@ -1,4 +1,5 @@
 sys-apps
 sys-kernel
 sys-libs
+sys-process
 virtual
