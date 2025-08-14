@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>181007489+TintedKiwi@users.noreply.github.com</email>
+		<name>TintedKiwi</name>
+	</maintainer>
+	<use>
+		<flag name="fish-completion">Enable fish completion support</flag>
+		<flag name="init">Enable support for running Dinit as an init system</flag>
+		<flag name="symlink">Use Dinit exclusively as system init and set the /sbin/init symlink</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">davmac314/dinit</remote-id>
+	</upstream>
+</pkgmetadata>
