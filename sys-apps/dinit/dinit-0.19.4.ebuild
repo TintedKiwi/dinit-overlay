@@ -1,0 +1,117 @@
+EAPI=8
+
+inherit flag-o-matic linux-info toolchain-funcs
+
+DESCRIPTION="Service manager and init system"
+HOMEPAGE="https://github.com/davmac314/dinit"
+SRC_URI="https://github.com/davmac314/dinit/releases/download/v${PV}/${P}.tar.xz"
+
+LICENSE="Apache-2.0"
+SLOT="0"
+KEYWORDS="amd64 arm64"
+IUSE="bash-completion +caps fish-completion zsh-completion"
+
+RDEPEND="
+	bash-completion? ( >=app-shells/bash-completion-2.16.0-r1 )
+	caps? ( >=sys-libs/libcap-2.76 )
+	fish-completion? ( >=app-shells/fish-3.7.1 )
+	zsh-completion? ( >=app-shells/zsh-completions-0.35.0 )
+	>=sys-libs/cgroup-utils-0.7.2
+	!sys-apps/openrc
+	!sys-apps/s6
+	!sys-apps/s6-linux-init
+	!sys-apps/s6-rc
+	!sys-apps/systemd
+	!sys-apps/sysvinit
+	!sys-process/runit
+"
+BDEPEND="
+	|| (
+		>=llvm-core/clang-15.0.7-r3
+		>=sys-devel/gcc-11.5.0
+	)
+"
+PDEPEND=">=sys-apps/dinitrc-0.6.4"
+
+PATCHES=(
+	"${FILESDIR}"/restart-interval.patch
+)
+
+pkg_setup() {
+	local CONFIG_CHECK="~CGROUPS"
+	use kernel_linux && linux-info_pkg_setup
+}
+
+src_configure() {
+	# Required C++ standard
+	# See https://github.com/davmac314/dinit/blob/63e1aa8dafb01ea1a6251fd7098435bcb5dda38b/BUILD#L137
+	append-cxxflags -std=c++11
+
+	# GCC dual ABI handling
+	# See https://github.com/davmac314/dinit/blob/63e1aa8dafb01ea1a6251fd7098435bcb5dda38b/BUILD#L258
+	if tc-is-gcc; then
+		local m=$(gcc-major-version)
+
+		if (( m < 7 )); then
+			append-cxxflags -D_GLIBCXX_USE_CXX11_ABI=0
+		else
+			append-cxxflags -D_GLIBCXX_USE_CXX11_ABI=1
+		fi
+	fi
+
+	# Disable RTTI
+	# See https://github.com/davmac314/dinit/blob/96773584c67b1c1498975a7639826247e70fd31d/BUILD#L143
+	append-cxxflags -fno-rtti
+
+	# Enable better code generation for non-static builds
+	# See https://github.com/davmac314/dinit/blob/96773584c67b1c1498975a7639826247e70fd31d/BUILD#L146
+	append-cxxflags -fno-plt
+
+	# Build environment variables
+	local conf_env=()
+
+	# Configuration options
+	local myconf=(
+		--disable-ioprio
+		--enable-cgroups
+		--enable-initgroups
+		--enable-oom-adj
+		--enable-shutdown
+		--enable-utmpx
+		--sbindir=/usr/bin
+		--syscontrolsocket=/run/dinitctl
+	)
+
+	# Capabilities support
+	if use caps; then
+		myconf+=( --enable-capabilities )
+
+		conf_env+=(
+			LDFLAGS_EXTRA=-lcap
+			TEST_LDFLAGS_EXTRA=-lcap
+		)
+	else
+		myconf+=( --disable-capabilities )
+	fi
+
+	env "${conf_env[@]}" econf "${myconf[@]}"
+}
+
+src_install() {
+	emake DESTDIR="${D}" install
+
+	# shell completions
+	if use bash-completion; then
+		insinto /usr/share/bash-completion/completions
+		doins contrib/shell-completion/bash/dinitctl
+	elif use fish-completion; then
+		insinto usr/share/fish/completions
+		doins contrib/shell-completion/fish/dinitctl.fish
+	elif use zsh-completion; then
+		insinto /usr/share/zsh/site-functions
+		doins contrib/shell-completion/zsh/_dinit
+	fi
+
+	dobin "${FILESDIR}"/dinit-init
+	dosym /usr/bin/dinit-init /usr/bin/init
+}
