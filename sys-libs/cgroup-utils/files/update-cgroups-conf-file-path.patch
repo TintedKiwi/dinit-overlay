@@ -1,0 +1,13 @@
+diff --git a/src/lib/util-cg.sh b/src/lib/util-cg.sh
+index 1aa0a0f..50d8102 100644
+--- a/src/lib/util-cg.sh
++++ b/src/lib/util-cg.sh
+@@ -2,7 +2,7 @@
+ 
+ load_config(){
+ 
+-    conf="@sysconfdir@/artix/cgroups.conf"
++    conf="@sysconfdir@/@pkgname@/cgroups.conf"
+ 
+     [ -f "$conf" ] || return 1
+ 
