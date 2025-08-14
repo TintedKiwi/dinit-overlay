@@ -1,0 +1,3 @@
+#!/bin/sh
+# rc.local for Gentoo -- enter your commands here
+# it should be run when starting local.target service

@@ -1,0 +1,43 @@
+diff --git a/scripts/tmpfiles b/scripts/tmpfiles
+index 882aa0d..9c16109 100644
+--- a/scripts/tmpfiles
++++ b/scripts/tmpfiles
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+ 
+-/usr/bin/etmpfiles "$@"
++/usr/bin/systemd-tmpfiles "$@"
+ 
+ ret=$?
+ case "$ret" in
+diff --git a/scripts/udevd b/scripts/udevd
+index 7600b94..b1bbb57 100644
+--- a/scripts/udevd
++++ b/scripts/udevd
+@@ -2,4 +2,4 @@
+ # Run after udevd-early so udevd can be properly supervised
+ 
+ /usr/bin/udevadm control --exit >/dev/null 2>&1
+-exec /usr/bin/udevd "$@"
++exec /usr/lib/systemd/systemd-udevd "$@"
+diff --git a/services/sysusers b/services/sysusers
+index c94324e..0c1197a 100644
+--- a/services/sysusers
++++ b/services/sysusers
+@@ -1,4 +1,4 @@
+ type      = scripted
+-command   = /usr/bin/esysusers
++command   = /usr/bin/systemd-sysusers
+ restart   = false
+ after     = early-root-rw.target
+diff --git a/services/udevd-early b/services/udevd-early
+index 2b83593..362f715 100644
+--- a/services/udevd-early
++++ b/services/udevd-early
+@@ -1,5 +1,5 @@
+ type            = scripted
+-command         = /usr/bin/udevd --daemon
++command         = /usr/lib/systemd/systemd-udevd --daemon
+ stop-command    = /usr/bin/sh -c "/usr/bin/udevadm control -e || :"
+ restart         = false
+ depends-on      = early-prepare.target

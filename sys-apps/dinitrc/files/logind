@@ -1,0 +1,4 @@
+type       = internal
+before     = login.target
+depends-on = seatd
+depends-on = turnstiled

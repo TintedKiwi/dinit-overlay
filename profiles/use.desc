@@ -1,0 +1,4 @@
+# Keep them sorted
+
+dinit - Add support for the Dinit service manager and init system
+turnstile - Add support for the management of Dinit user services

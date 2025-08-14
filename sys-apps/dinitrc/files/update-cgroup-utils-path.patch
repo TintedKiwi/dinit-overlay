@@ -1,0 +1,20 @@
+diff --git a/services/binfmt b/services/binfmt
+index 117f981..5ffe2f0 100644
+--- a/services/binfmt
++++ b/services/binfmt
+@@ -1,4 +1,4 @@
+ type       = scripted
+-command    = /usr/lib/artix/binfmt.sh
++command    = /usr/lib/cgroup-utils/binfmt.sh
+ depends-on = early-fs-local.target
+ restart    = false
+diff --git a/services/cgroups b/services/cgroups
+index 941b92b..612aa6b 100644
+--- a/services/cgroups
++++ b/services/cgroups
+@@ -1,4 +1,4 @@
+ type       = scripted
+-command    = /bin/bash /usr/lib/artix/mount-cgroups.sh
++command    = /bin/bash /usr/lib/cgroup-utils/mount-cgroups.sh
+ restart    = false
+ depends-on = pseudofs
