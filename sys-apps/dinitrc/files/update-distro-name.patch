@@ -1,0 +1,22 @@
+diff --git a/scripts/rclocal b/scripts/rclocal
+index f5835df..ca09c6a 100644
+--- a/scripts/rclocal
++++ b/scripts/rclocal
+@@ -3,7 +3,7 @@
+ [ ! -f /etc/rc.local ] && {
+ cat <<EOF > /etc/rc.local
+ #!/bin/sh
+-# rc.local for Artix -- enter your commands here
++# rc.local for Gentoo -- enter your commands here
+ # it should be run when starting local.target service
+ EOF
+ chmod 755 /etc/rc.local
+@@ -12,7 +12,7 @@ chmod 755 /etc/rc.local
+ [ ! -f /etc/rc.shutdown ] && {
+ cat <<EOF > /etc/rc.shutdown
+ #!/bin/sh
+-# rc.shutdown for Artix -- enter your commands here
++# rc.shutdown for Gentoo -- enter your commands here
+ # it should be run when stopping local.target service
+ EOF
+ chmod 755 /etc/rc.shutdown
