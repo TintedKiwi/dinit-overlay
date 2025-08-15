@@ -1,0 +1,8 @@
+type               = process
+command            = /usr/lib/elogind/elogind
+before             = login.target
+depends-on         = dbus
+depends-on         = elogind-cg
+depends-on         = local.target
+ready-notification = pipevar:LOGIND_READY_FD
+smooth-recovery    = true
