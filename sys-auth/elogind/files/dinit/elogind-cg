@@ -1,0 +1,4 @@
+type         = scripted
+command      = /usr/lib/cgroup-utils/sv-cg.sh up elogind
+stop-command = /usr/lib/cgroup-utils/sv-cg.sh down elogind
+depends-on   = local.target
