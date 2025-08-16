@@ -1,0 +1,10 @@
+diff --git a/data/dinit/turnstiled b/data/dinit/turnstiled
+index 2f32d26..a599dd4 100644
+--- a/data/dinit/turnstiled
++++ b/data/dinit/turnstiled
+@@ -4,4 +4,4 @@ type       = process
+ before     = login.target
+ depends-on = local.target
+ command    = /usr/bin/turnstiled
+-logfile    = /var/log/turnstiled.log
++logfile    = /var/log/dinit/turnstiled.log
