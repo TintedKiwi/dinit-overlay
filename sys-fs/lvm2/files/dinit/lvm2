@@ -1,0 +1,6 @@
+type       = scripted
+command    = /usr/bin/vgchange --sysinit -a ay
+before     = early-fs-pre.target
+depends-on = early-devices.target
+log-type   = buffer
+restart    = false
