@@ -1,0 +1,6 @@
+type            = process
+command         = /usr/bin/lvmpolld -t 60 -f 2>&1
+after           = early-devices.target
+depends-on      = lvmpolld-pre
+logfile         = /var/log/dinit/lvmpolld.log
+smooth-recovery = true
