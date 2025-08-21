@@ -1,0 +1,9 @@
+type          = scripted
+command       = /usr/lib/dinit/cryptsetup remaining start
+after         = lvm2
+before        = early-fs-pre.target
+depends-on    = cryptsetup-early
+depends-on    = early-devices.target
+options       = starts-on-console
+restart       = false
+start-timeout = 0

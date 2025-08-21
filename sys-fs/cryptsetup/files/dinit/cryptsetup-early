@@ -1,0 +1,9 @@
+type          = scripted
+command       = /usr/lib/dinit/cryptsetup early start
+after         = mdadm
+depends-ms    = fsck-root
+depends-on    = early-devices.target
+depends-on    = early-keyboard.target
+options       = starts-on-console
+restart       = false
+start-timeout = 0
