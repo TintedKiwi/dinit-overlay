@@ -1,0 +1,6 @@
+type            = process
+command         = /usr/bin/dmeventd -f
+after           = early-devices.target
+before          = early-fs-pre.target
+log-type        = buffer
+smooth-recovery = true
