@@ -3,4 +3,5 @@ sys-auth
 sys-fs
 sys-kernel
 sys-libs
+sys-process
 virtual

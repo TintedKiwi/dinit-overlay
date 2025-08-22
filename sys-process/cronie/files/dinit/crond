@@ -1,0 +1,7 @@
+type            = process
+command         = /usr/bin/crond -n -s
+after           = local.target
+before          = login.target
+restart         = on-failure
+restart-delay   = 30
+smooth-recovery = true
