@@ -1,0 +1,9 @@
+type            = bgprocess
+command         = /usr/bin/rsyslogd -i /run/rsyslogd.pid
+before          = login.target
+depends-on      = local.target
+options         = starts-log
+pid-file        = /run/rsyslogd.pid
+restart         = on-failure
+rlimit-nofile   = 16384
+smooth-recovery = true
