@@ -1,0 +1,7 @@
+type            = bgprocess
+command         = /usr/bin/mdadm --daemonise --monitor --scan --syslog --pid-file /run/mdadm.pid
+depends-on      = local.target
+depends-on      = pre-network.target
+pid-file        = /run/mdadm.pid
+restart         = on-failure
+smooth-recovery = true
