@@ -1,0 +1,8 @@
+type               = process
+command            = /usr/libexec/iwd
+before             = network.target
+depends-on         = dbus
+depends-on         = early-devices.target
+depends-on         = pre-network.target
+logfile            = /var/log/dinit/iwd.log
+smooth-recovery    = true
