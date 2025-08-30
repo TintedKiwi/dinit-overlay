@@ -1,0 +1,87 @@
+diff --git a/Makefile.am b/Makefile.am
+index 92adfa6..e1022e7 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -173,15 +173,14 @@ noinst_PROGRAMS =
+ if DBUS_POLICY
+ dbus_datadir = @DBUS_DATADIR@/dbus-1/system.d
+ dist_dbus_data_DATA =
++dbus_busdir = @DBUS_BUSDIR@
++dbus_bus_DATA =
+ endif
+ 
+ if SYSTEMD_SERVICE
+ systemd_unitdir = @SYSTEMD_UNITDIR@
+ systemd_unit_DATA =
+ 
+-dbus_busdir = @DBUS_BUSDIR@
+-dbus_bus_DATA =
+-
+ systemd_networkdir = @SYSTEMD_NETWORKDIR@
+ systemd_network_DATA =
+ 
+@@ -287,13 +286,13 @@ endif
+ 
+ if DBUS_POLICY
+ dist_dbus_data_DATA += src/iwd-dbus.conf
++dbus_bus_DATA += src/net.connman.iwd.service
+ endif
+ 
+ if SYSTEMD_SERVICE
+ src_iwd_DEPENDENCIES += src/iwd.service
+ 
+ systemd_unit_DATA += src/iwd.service
+-dbus_bus_DATA += src/net.connman.iwd.service
+ 
+ systemd_network_DATA += src/80-iwd.link
+ endif
+@@ -375,13 +374,13 @@ wired_ead_DEPENDENCIES = $(ell_dependencies)
+ 
+ if DBUS_POLICY
+ dist_dbus_data_DATA += wired/ead-dbus.conf
++dbus_bus_DATA += wired/net.connman.ead.service
+ endif
+ 
+ if SYSTEMD_SERVICE
+ wired_ead_DEPENDENCIES += wired/ead.service
+ 
+ systemd_unit_DATA += wired/ead.service
+-dbus_bus_DATA += wired/net.connman.ead.service
+ endif
+ 
+ if MANUAL_PAGES
+diff --git a/configure.ac b/configure.ac
+index 6c2fc95..5da18c2 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -241,7 +241,7 @@ AM_CONDITIONAL(RUN_RST2MAN, test "${enable_manual_pages}" != "no" && test "${RST
+ AC_ARG_WITH([dbus-busdir], AS_HELP_STRING([--with-dbus-busdir=DIR],
+ 				[path to D-Bus bus services directory]),
+ 					[path_dbus_busdir=${withval}])
+-if (test "${enable_systemd_service}" != "no" && test -z "${path_dbus_busdir}"); then
++if (test -z "${path_dbus_busdir}"); then
+ 	AC_MSG_CHECKING([D-Bus bus services directory])
+ 	path_dbus_busdir="`$PKG_CONFIG --variable=system_bus_services_dir dbus-1`"
+ 	if (test -z "${path_dbus_busdir}"); then
+diff --git a/src/net.connman.iwd.service b/src/net.connman.iwd.service
+index d8ece4c..5ff6390 100644
+--- a/src/net.connman.iwd.service
++++ b/src/net.connman.iwd.service
+@@ -1,5 +1,5 @@
+ [D-BUS Service]
+ Name=net.connman.iwd
+-Exec=/bin/false
++Exec=/usr/libexec/iwd
+ User=root
+ SystemdService=iwd.service
+diff --git a/wired/net.connman.ead.service b/wired/net.connman.ead.service
+index 24af96b..8a2af0a 100644
+--- a/wired/net.connman.ead.service
++++ b/wired/net.connman.ead.service
+@@ -1,5 +1,5 @@
+ [D-BUS Service]
+ Name=net.connman.ead
+-Exec=/bin/false
++Exec=/usr/libexec/ead
+ User=root
+ SystemdService=ead.service
