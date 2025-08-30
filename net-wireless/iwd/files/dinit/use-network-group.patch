@@ -1,0 +1,47 @@
+diff --git a/src/iwd-dbus.conf b/src/iwd-dbus.conf
+index f2509eb..a624110 100644
+--- a/src/iwd-dbus.conf
++++ b/src/iwd-dbus.conf
+@@ -15,11 +15,7 @@
+     <allow send_interface="net.connman.iwd.SharedCodeAgent"/>
+   </policy>
+ 
+-  <policy group="wheel">
+-    <allow send_destination="net.connman.iwd"/>
+-  </policy>
+-
+-  <policy group="netdev">
++  <policy group="network">
+     <allow send_destination="net.connman.iwd"/>
+   </policy>
+ 
+diff --git a/tools/hwsim-dbus.conf b/tools/hwsim-dbus.conf
+index ec08136..2fcbf74 100644
+--- a/tools/hwsim-dbus.conf
++++ b/tools/hwsim-dbus.conf
+@@ -12,7 +12,7 @@
+     <allow send_destination="net.connman.hwsim"/>
+   </policy>
+ 
+-  <policy group="wheel">
++  <policy group="network">
+     <allow send_destination="net.connman.hwsim"/>
+   </policy>
+ 
+diff --git a/wired/ead-dbus.conf b/wired/ead-dbus.conf
+index 8a685e0..921a400 100644
+--- a/wired/ead-dbus.conf
++++ b/wired/ead-dbus.conf
+@@ -13,11 +13,7 @@
+     <allow send_interface="net.connman.ead.Agent"/>
+   </policy>
+ 
+-  <policy group="wheel">
+-    <allow send_destination="net.connman.ead"/>
+-  </policy>
+-
+-  <policy group="netdev">
++  <policy group="network">
+     <allow send_destination="net.connman.ead"/>
+   </policy>
+ 
