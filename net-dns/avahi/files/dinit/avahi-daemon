@@ -1,0 +1,7 @@
+type            = process
+command         = /usr/bin/avahi-daemon
+before          = login.target
+depends-on      = dbus
+depends-on      = network.target
+logfile         = /var/log/dinit/avahi-daemon.log
+smooth-recovery = true
