@@ -10,3 +10,4 @@ sys-kernel
 sys-libs
 sys-process
 virtual
+x11-misc
