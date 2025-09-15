@@ -1,0 +1,5 @@
+amd64  amd64/23.0/desktop/dinit           stable
+amd64  amd64/23.0/desktop/hardened        stable
+amd64  amd64/23.0/desktop/hardened/dinit  stable
+amd64  amd64/23.0/dinit                   stable
+amd64  amd64/23.0/hardened/dinit          stable
