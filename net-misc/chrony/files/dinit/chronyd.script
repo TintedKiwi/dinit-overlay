@@ -1,0 +1,3 @@
+#!/bin/sh
+[ -r /etc/sysconfig/chronyd ] && . /etc/sysconfig/chronyd
+exec /usr/bin/chronyd -n $OPTIONS
