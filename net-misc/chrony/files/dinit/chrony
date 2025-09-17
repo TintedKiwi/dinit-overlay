@@ -1,0 +1,6 @@
+type          = scripted
+command       = /bin/sh -c "/usr/bin/chronyc -h 127.0.0.1,::1 waitsync 180 0.1 0.0 1 || :"
+before        = time-sync.target
+depends-on    = chronyd
+options       = start-interruptible
+start-timeout = 240
