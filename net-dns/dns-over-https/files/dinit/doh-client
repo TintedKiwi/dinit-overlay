@@ -1,0 +1,6 @@
+type            = process
+command         = /usr/bin/doh-client -verbose -conf /etc/dns-over-https/doh-client.conf
+before          = login.target
+depends-on      = network.target
+logfile         = /var/log/dinit/doh-client.log
+smooth-recovery = true

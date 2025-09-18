@@ -1,0 +1,46 @@
+diff --git a/NetworkManager/dispatcher.d/doh-client b/NetworkManager/dispatcher.d/doh-client
+index 1ad110b..90d273f 100755
+--- a/NetworkManager/dispatcher.d/doh-client
++++ b/NetworkManager/dispatcher.d/doh-client
+@@ -2,10 +2,16 @@
+ 
+ case "$2" in
+     up)
+-        /usr/bin/systemctl is-active doh-client.service > /dev/null && /usr/bin/systemctl restart doh-client.service
++        state=$(/usr/bin/dinitctl is-started doh-client)
++        if [ "$state" = "STARTED" ] || [ "$state" = "STARTING" ]; then
++            /usr/bin/dinitctl restart doh-client
++        fi
+         ;;
+     down)
+-        /usr/bin/systemctl is-active doh-client.service > /dev/null && /usr/bin/systemctl restart doh-client.service
++        state=$(/usr/bin/dinitctl is-started doh-client)
++        if [ "$state" = "STARTED" ] || [ "$state" = "STARTING" ]; then
++            /usr/bin/dinitctl restart doh-client
++        fi
+         ;;
+     *)
+         exit 0
+diff --git a/NetworkManager/dispatcher.d/doh-server b/NetworkManager/dispatcher.d/doh-server
+index 0f584d4..d9c1f16 100755
+--- a/NetworkManager/dispatcher.d/doh-server
++++ b/NetworkManager/dispatcher.d/doh-server
+@@ -2,10 +2,16 @@
+ 
+ case "$2" in
+     up)
+-        /usr/bin/systemctl is-active doh-server.service > /dev/null && /usr/bin/systemctl restart doh-server.service
++        state=$(/usr/bin/dinitctl is-started doh-server)
++        if [ "$state" = "STARTED" ] || [ "$state" = "STARTING" ]; then
++            /usr/bin/dinitctl restart doh-server
++        fi
+         ;;
+     down)
+-        /usr/bin/systemctl is-active doh-server.service > /dev/null && /usr/bin/systemctl restart doh-server.service
++        state=$(/usr/bin/dinitctl is-started doh-server)
++        if [ "$state" = "STARTED" ] || [ "$state" = "STARTING" ]; then
++            /usr/bin/dinitctl restart doh-server
++        fi
+         ;;
+     *)
+         exit 0
