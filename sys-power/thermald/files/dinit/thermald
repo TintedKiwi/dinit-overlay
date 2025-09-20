@@ -1,0 +1,6 @@
+type            = process
+command         = /usr/bin/thermald --adaptive --no-daemon --dbus-enable
+before          = login.target
+depends-on      = dbus
+logfile         = /var/log/dinit/thermald.log
+smooth-recovery = true
