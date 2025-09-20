@@ -8,6 +8,7 @@ sys-auth
 sys-fs
 sys-kernel
 sys-libs
+sys-power
 sys-process
 virtual
 x11-misc
