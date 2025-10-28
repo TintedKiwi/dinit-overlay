@@ -1,6 +1,7 @@
 acct-group
 app-admin
 net-dns
+net-firewall
 net-misc
 net-wireless
 sys-apps
