@@ -1,0 +1,10 @@
+type               = process
+command            = /usr/lib/power-profiles-daemon -v
+before             = login.target
+depends-on         = dbus
+depends-on         = local.target
+logfile            = /var/log/dinit/power-profiles-daemon.log
+ready-notification = pipevar:PPD_READY_FD
+smooth-recovery    = true
+waits-for          = polkitd
+working-dir        = /var/lib/power-profiles-daemon
