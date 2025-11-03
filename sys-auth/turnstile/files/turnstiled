@@ -1,0 +1,5 @@
+type       = process
+command    = /usr/bin/turnstiled
+before     = login.target
+depends-on = local.target
+logfile    = /var/log/dinit/turnstiled.log
