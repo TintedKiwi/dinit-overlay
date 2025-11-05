@@ -1,0 +1,13 @@
+diff --git a/data/org.freedesktop.fwupd.service.in b/data/org.freedesktop.fwupd.service.in
+index 7e00259..ef450b5 100644
+--- a/data/org.freedesktop.fwupd.service.in
++++ b/data/org.freedesktop.fwupd.service.in
+@@ -1,7 +1,7 @@
+ [D-BUS Service]
+ Name=org.freedesktop.fwupd
+ Documentation=https://fwupd.org/
+-Exec=@libexecdir@/fwupd/fwupd
++Exec=/usr/bin/dinitctl --quiet start fwupd
+ User=root
+ AssumedAppArmorLabel=unconfined
+ @systemd_service@

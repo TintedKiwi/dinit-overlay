@@ -1,0 +1,30 @@
+diff --git a/src/fu-daemon.c b/src/fu-daemon.c
+index 7b5d560..d30e6ae 100644
+--- a/src/fu-daemon.c
++++ b/src/fu-daemon.c
+@@ -7,6 +7,7 @@
+ #define G_LOG_DOMAIN "FuMain"
+ 
+ #include "config.h"
++#include <fcntl.h>
+ 
+ #ifdef HAVE_MALLOC_H
+ #include <malloc.h>
+@@ -253,6 +254,17 @@ fu_daemon_start(FuDaemon *self, GError **error)
+ 		return FALSE;
+ 
+ 	fu_daemon_schedule_housekeeping(self);
++
++	/* readiness notification for dinit */
++	const char *rvar = g_getenv("FWUPD_READY_FD");
++	if (rvar) {
++		int fdn = atoi(rvar);
++		if (fdn && fcntl(fdn, F_GETFD) >= 0) {
++			write(fdn, "READY=1\n", sizeof("READY=1"));
++		}
++		close(fdn);
++	}
++
+ 	g_main_loop_run(priv->loop);
+ 	return TRUE;
+ }

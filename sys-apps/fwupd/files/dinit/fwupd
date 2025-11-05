@@ -1,0 +1,8 @@
+type               = process
+command            = /usr/libexec/fwupd/fwupd
+before             = login.target
+depends-on         = dbus
+depends-on         = local.target
+logfile            = /var/log/dinit/fwupd.log
+ready-notification = pipevar:FWUPD_READY_FD
+smooth-recovery    = true
