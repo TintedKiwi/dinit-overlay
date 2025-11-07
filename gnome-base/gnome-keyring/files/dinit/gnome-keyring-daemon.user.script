@@ -1,0 +1,2 @@
+#!/bin/sh
+mkdir -p -m 700 "${XDG_RUNTIME_DIR}"/keyring

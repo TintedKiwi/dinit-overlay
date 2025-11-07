@@ -1,0 +1,8 @@
+type               = process
+command            = /usr/bin/gnome-keyring-daemon --start --foreground --control-directory=${XDG_RUNTIME_DIR}/keyring
+depends-on         = dbus
+depends-on         = gnome-keyring-daemon-pre
+log-type           = buffer
+smooth-recovery    = true
+socket-listen      = ${XDG_RUNTIME_DIR}/keyring/control
+socket-permissions = 600
