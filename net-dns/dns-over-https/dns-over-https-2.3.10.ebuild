@@ -5,6 +5,7 @@ inherit flag-o-matic go-module systemd
 DESCRIPTION="Client and server software to query DNS over HTTPS, using Google DNS-over-HTTPS protocol"
 HOMEPAGE="https://github.com/m13253/dns-over-https"
 SRC_URI="https://github.com/m13253/dns-over-https/archive/v${PV}.tar.gz"
+SRC_URI+=" https://github.com/TintedKiwi/gentoo-overlay-resources/releases/download/${PN}-v${PV}/${P}-deps.tar.xz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -14,10 +15,8 @@ REQUIRED_USE="
 	|| ( client server )
 "
 
-# Restrict network-sandbox to download Go modules until vendor files can be hosted or provided by upstream
 RESTRICT="
 	!test? ( test )
-	network-sandbox
 "
 
 S="${WORKDIR}/${PN}-${PV}"
@@ -43,18 +42,16 @@ src_prepare() {
 }
 
 src_compile() {
-	export GOFLAGS="${GOFLAGS} -trimpath"
-
 	export CGO_CFLAGS="${CFLAGS}"
 	export CGO_CPPFLAGS="${CPPFLAGS}"
 	export CGO_LDFLAGS="${LDFLAGS}"
 
 	if use client; then
-		ego build -v -o client ./doh-client
+		ego build -mod=vendor -trimpath -v -o client ./doh-client
 	fi
 
 	if use server; then
-		ego build -v -o server ./doh-server
+		ego build -mod=vendor -trimpath -v -o server ./doh-server
 	fi
 }
 
