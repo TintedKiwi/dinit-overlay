@@ -1,0 +1,8 @@
+#!/bin/sh
+
+mkdir -p -m 700 "${XDG_RUNTIME_DIR}"/gcr
+
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/gcr/ssh"
+
+# Export into activation environment to make it visible to other services
+/usr/bin/dinitctl setenv SSH_AUTH_SOCK || :

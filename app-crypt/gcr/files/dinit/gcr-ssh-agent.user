@@ -1,0 +1,9 @@
+type               = process
+command            = /usr/libexec/gcr-ssh-agent --base-dir ${XDG_RUNTIME_DIR}/gcr
+depends-on         = dbus
+depends-on         = gcr-ssh-agent-pre
+log-type           = buffer
+restart            = on-failure
+smooth-recovery    = true
+socket-listen      = ${XDG_RUNTIME_DIR}/gcr/ssh
+socket-permissions = 600
