@@ -42,7 +42,6 @@ BDEPEND="
 	app-alternatives/lex
 	app-alternatives/yacc
 	dev-build/autoconf-archive
-	dev-python/docutils
 	sys-apps/lsb-release
 	virtual/pkgconfig
 	test? (
