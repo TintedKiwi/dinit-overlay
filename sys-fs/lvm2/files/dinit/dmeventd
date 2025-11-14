@@ -3,4 +3,5 @@ command         = /usr/bin/dmeventd -f
 after           = early-devices.target
 before          = early-fs-pre.target
 log-type        = buffer
+oom-score-adj   = -1000
 smooth-recovery = true
