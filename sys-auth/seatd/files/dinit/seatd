@@ -1,5 +1,6 @@
 type               = process
 command            = /usr/bin/seatd -g seat -n 3
+capabilities       = ^CAP_SYS_ADMIN,^CAP_CHOWN,^CAP_SYS_TTY_CONFIG,^CAP_DAC_OVERRIDE
 before             = login.target
 depends-on         = local.target
 logfile            = /var/log/dinit/seatd.log
