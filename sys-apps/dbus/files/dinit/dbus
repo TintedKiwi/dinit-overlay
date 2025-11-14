@@ -1,8 +1,10 @@
 type               = process
 command            = /usr/lib/dinit/dbus --print-address=4
+capabilities       = ^CAP_AUDIT_WRITE
 before             = login.target
 depends-on         = dbus-pre
 logfile            = /var/log/dinit/dbus-daemon.log
+oom-score-adj      = -900
 ready-notification = pipefd:4
 run-in-cgroup      = dbus.sv
 smooth-recovery    = no
